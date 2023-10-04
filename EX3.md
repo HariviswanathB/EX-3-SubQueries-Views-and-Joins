@@ -69,45 +69,71 @@ INSERT INTO DEPT (DEPTNO, DNAME, LOC) VALUES (40, 'OPERATIONS', 'BOSTON');
 
 
 ### QUERY:
-
+``` sql
+CREATE VIEW details AS SELECT ENAME FROM EMP WHERE SALARY >(select SALARY from EMP where EMPNO=7566);
+```
 
 ### OUTPUT:
+![image](https://github.com/dineshgl/EX-3-SubQueries-Views-and-Joins/assets/119103855/912e5353-735b-4f8e-abad-312b1cf31774)
+
 
 ### Q2) List the ename,job,sal of the employee who get minimum salary in the company.
 
 ### QUERY:
-
+``` sql
+ CREATE VIEW minimum AS select ENAME,JOB,SALARY from EMP where SALARY =(select MIN(SALARY) from EMP);
+```
 
 ### OUTPUT:
+ ![image](https://github.com/dineshgl/EX-3-SubQueries-Views-and-Joins/assets/119103855/1218e237-c431-4c32-b4e0-f22f50b7a1bc)
+
 
 ### Q3) List ename, job of the employees who work in deptno 10 and his/her job is any one of the job in the department ‘SALES’.
 
 ### QUERY:
-
+``` sql
+select ENAME,JOB from EMP where  DEPTNO=10 AND JOB='SALESMAN';
+```
 
 ### OUTPUT:
+![image](https://github.com/dineshgl/EX-3-SubQueries-Views-and-Joins/assets/119103855/a92b9274-8279-47e9-9efe-3a56ef5ec1dd)
 
 
 ### Q4) Create a view empv5 (for the table emp) that contains empno, ename, job of the employees who work in dept 10.
 
 ### QUERY:
-
+``` sql
+create view empv5 as select EMPNO,ENAME,JOB from EMP where DEPTNO=10;
+```
 
 ### OUTPUT:
+![image](https://github.com/dineshgl/EX-3-SubQueries-Views-and-Joins/assets/119103855/4032ede5-0a9d-499d-af5c-bba4110c4fcd)
+
 
 ### Q5) Create a view with column aliases empv30 that contains empno, ename, sal of the employees who work in dept 30. Also display the contents of the view.
 
 ### QUERY:
-
+``` sql
+create view empv30 AS select EMPNO,ENAME,SALARY from EMP where DEPTNO=30;
+```
 
 ### OUTPUT:
+![image](https://github.com/dineshgl/EX-3-SubQueries-Views-and-Joins/assets/119103855/711d13ce-0910-4760-8414-9c9801aef5eb)
 
+ 
 ### Q6) Update the view empv5 by increasing 10% salary of the employees who work as ‘CLERK’. Also confirm the modifications in emp table
 
 ### QUERY:
+``` sql
+update EMP set SALARY=SALARY*1.1 WHERE JOB='clerk';
+
+create view empv5 as select EMPNO,ENAME,SALARY,JOB from EMP;
+```
 
 
 ### OUTPUT:
+![image](https://github.com/dineshgl/EX-3-SubQueries-Views-and-Joins/assets/119103855/ba5bce0c-c263-44b4-83ed-33895a906bf4)
+
 
 ## Create a Customer1 Table
 ```sql
@@ -140,28 +166,55 @@ INSERT INTO Salesman1 (salesman_id, name, city, commission) VALUES(5003, 'Lauson
 ### Q7) Write a SQL query to find the salesperson and customer who reside in the same city. Return Salesman, cust_name and city.
 
 ### QUERY:
+``` sql
+select s.name,c.cust_name,s.city from salesman1 as s ,customer1 as c where s.city=c.city;
+```
 
 
 ### OUTPUT:
+![image](https://github.com/dineshgl/EX-3-SubQueries-Views-and-Joins/assets/119103855/aa2278c8-83aa-42e8-8660-890591c192ff)
+
 
 ### Q8) Write a SQL query to find salespeople who received commissions of more than 13 percent from the company. Return Customer Name, customer city, Salesman, commission.
 
 
 ### QUERY:
-
+``` sql
+select s.name,c.cust_name,c.city,s.commission from salesman1 as s inner join customer1 as c on s.city=c.city where s.commission>0.13;
+```
 
 ### OUTPUT:
+
+![image](https://github.com/dineshgl/EX-3-SubQueries-Views-and-Joins/assets/119103855/25ec3407-cf0a-4132-9202-e24c24559ebf)
+
 
 ### Q9) Perform Natural join on both tables
 
 ### QUERY:
+``` sql
+ select s.name,c.cust_name,c.city,s.commission from salesman1 as s natural join customer1 as c where s.commission>0.13;
+```
 
 
 ### OUTPUT:
+
+![image](https://github.com/dineshgl/EX-3-SubQueries-Views-and-Joins/assets/119103855/9c6ed29f-1c12-41f6-be43-347710a1a4f1)
+
 
 ### Q10) Perform Left and right join on both tables
 
 ### QUERY:
+``` sql
+select s.name,c.cust_name,c.city,s.commission from salesman1 as s left join customer1 as c on s.salesman_id=c.salesman_id where s.commission>0.13;
+
+select s.name,c.cust_name,c.city,s.commission from salesman1 as s right join customer1 as c on s.salesman_id=c.salesman_id where s.commission>0.13;
+```
 
 
 ### OUTPUT:
+
+![image](https://github.com/dineshgl/EX-3-SubQueries-Views-and-Joins/assets/119103855/7ae329af-0cb3-46a4-85be-74f4feb544d1)
+![image](https://github.com/dineshgl/EX-3-SubQueries-Views-and-Joins/assets/119103855/55c1583e-faca-4857-baed-62a065877754)
+
+### RESULT:
+Hence successfully created a manager database and execute DML queries using SQL.
