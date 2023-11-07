@@ -71,45 +71,76 @@ INSERT INTO DEPT (DEPTNO, DNAME, LOC) VALUES (40, 'OPERATIONS', 'BOSTON');
 
 
 ### QUERY:
+```
+select ENAME from EMP where SAL>(select SAL from EMP where EMPNO=7566);
+```
 
 
 ### OUTPUT:
+![image](https://github.com/HariviswanathB/EX-3-SubQueries-Views-and-Joins/assets/119103855/5261aa8f-1b8f-4379-a4d6-025092a96260)
+
 
 ### Q2) List the ename,job,sal of the employee who get minimum salary in the company.
 
 ### QUERY:
+```
+SELECT ename, job, sal FROM emp WHERE sal = (SELECT MIN(sal) FROM emp);
+```
 
 
 ### OUTPUT:
+![image](https://github.com/HariviswanathB/EX-3-SubQueries-Views-and-Joins/assets/119103855/7ef6a73d-082f-4a47-8517-2726b554444f)
+
 
 ### Q3) List ename, job of the employees who work in deptno 10 and his/her job is any one of the job in the department ‘SALES’.
 
 ### QUERY:
+```
+SELECT e.ename, e.job FROM emp e, dept d WHERE e.deptno = 10 AND e.job IN (SELECT job FROM emp WHERE deptno = (SELECT deptno FROM dept WHERE dname = 'SALES'));
+```
 
 
 ### OUTPUT:
+![image](https://github.com/HariviswanathB/EX-3-SubQueries-Views-and-Joins/assets/119103855/2d32aa8b-4c70-4bce-9d64-91666c21863a)
+
 
 
 ### Q4) Create a view empv5 (for the table emp) that contains empno, ename, job of the employees who work in dept 10.
 
 ### QUERY:
+```
+CREATE VIEW empv5 AS SELECT empno, ename, job FROM emp WHERE deptno = 10;
+```
 
 
 ### OUTPUT:
+![image](https://github.com/HariviswanathB/EX-3-SubQueries-Views-and-Joins/assets/119103855/f06f38d2-d23d-4690-ac9d-0579d4ef5a96)
 
 ### Q5) Create a view with column aliases empv30 that contains empno, ename, sal of the employees who work in dept 30. Also display the contents of the view.
 
 ### QUERY:
+```
+CREATE VIEW empv30 AS SELECT empno, ename, sal FROM emp WHERE deptno = 30;
+SELECT * FROM empv30;
+```
 
 
 ### OUTPUT:
+![image](https://github.com/HariviswanathB/EX-3-SubQueries-Views-and-Joins/assets/119103855/686da76c-fecc-45aa-a5ac-0a952d7f8543)
+
 
 ### Q6) Update the view empv5 by increasing 10% salary of the employees who work as ‘CLERK’. Also confirm the modifications in emp table
 
 ### QUERY:
+```
+UPDATE emp SET sal = sal * 1.10 WHERE empno IN (SELECT empno FROM empv5 WHERE job = 'CLERK');
+SELECT * FROM emp;
+```
 
 
 ### OUTPUT:
+![image](https://github.com/HariviswanathB/EX-3-SubQueries-Views-and-Joins/assets/119103855/ada6662f-4b00-4f2a-bd35-9311197084e8)
+
 
 ## Create a Customer1 Table
 ```sql
@@ -142,28 +173,59 @@ INSERT INTO Salesman1 (salesman_id, name, city, commission) VALUES(5003, 'Lauson
 ### Q7) Write a SQL query to find the salesperson and customer who reside in the same city. Return Salesman, cust_name and city.
 
 ### QUERY:
-
+```
+SELECT S.name AS Salesman, C.cust_name, C.city FROM Salesman1 S ,Customer1 C where S.city = C.city;
+```
 
 ### OUTPUT:
+![image](https://github.com/HariviswanathB/EX-3-SubQueries-Views-and-Joins/assets/119103855/67bb3618-1253-4cbc-b510-bef514fc6acc)
+
 
 ### Q8) Write a SQL query to find salespeople who received commissions of more than 13 percent from the company. Return Customer Name, customer city, Salesman, commission.
 
 
 ### QUERY:
+```
+SELECT c.cust_name AS CustomerName, c.city AS CustomerCity, s.name AS Salesman, s.commission FROM Salesman1 s JOIN Customer1 c ON s.salesman_id = c.salesman_id WHERE s.commission > 0.13;
+```
 
 
 ### OUTPUT:
+![image](https://github.com/HariviswanathB/EX-3-SubQueries-Views-and-Joins/assets/119103855/889f8507-91b2-4f37-8ba6-25839d1dafa4)
+
 
 ### Q9) Perform Natural join on both tables
 
 ### QUERY:
+```
+SELECT * FROM Salesman1 NATURAL JOIN Customer1;
+```
 
 
 ### OUTPUT:
+![image](https://github.com/HariviswanathB/EX-3-SubQueries-Views-and-Joins/assets/119103855/6b70864c-86e8-4590-9234-58f7cb664495)
+
 
 ### Q10) Perform Left and right join on both tables
 
 ### QUERY:
+```
+-- Left Join
+SELECT * FROM Customer1 LEFT JOIN Salesman1 ON Customer1.salesman_id = Salesman1.salesman_id;
+```
+```
+-- Right Join
+SELECT * FROM Salesman1 RIGHT JOIN Customer1 ON Salesman1.salesman_id = Customer1.salesman_id;
+```
 
 
 ### OUTPUT:
+LEFT:
+![image](https://github.com/HariviswanathB/EX-3-SubQueries-Views-and-Joins/assets/119103855/ad715749-fc3e-4c57-a17a-b362a0edae79)
+RIGHT:
+![image](https://github.com/HariviswanathB/EX-3-SubQueries-Views-and-Joins/assets/119103855/48a212c6-325f-4638-b3cc-4f0c37bafd7d)
+
+# RESULT:
+Hence SubQueries, Views and Joins has been executed successfully.
+
+
